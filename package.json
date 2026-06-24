@@ -1,0 +1,15 @@
+{
+  "name": "npo-tasuki-suita",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:admin": "esbuild src/admin.js --bundle --minify --format=iife --outfile=admin.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2"
+  }
+}

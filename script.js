@@ -3,6 +3,14 @@ const menuButton = document.querySelector(".menu-button");
 const navigation = document.querySelector(".global-nav");
 const menuLabel = menuButton?.querySelector(".sr-only");
 
+const closeMenu = ({ restoreFocus = false } = {}) => {
+  menuButton?.setAttribute("aria-expanded", "false");
+  navigation?.classList.remove("open");
+  document.body.classList.remove("menu-open");
+  if (menuLabel) menuLabel.textContent = "メニューを開く";
+  if (restoreFocus) menuButton?.focus();
+};
+
 const updateHeader = () => {
   header?.classList.toggle("scrolled", window.scrollY > 20);
 };
@@ -14,22 +22,27 @@ menuButton?.addEventListener("click", () => {
   const isOpen = menuButton.getAttribute("aria-expanded") === "true";
   menuButton.setAttribute("aria-expanded", String(!isOpen));
   navigation?.classList.toggle("open", !isOpen);
+  document.body.classList.toggle("menu-open", !isOpen);
   if (menuLabel) menuLabel.textContent = isOpen ? "メニューを開く" : "メニューを閉じる";
 });
 
 navigation?.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => {
-    menuButton?.setAttribute("aria-expanded", "false");
-    navigation.classList.remove("open");
-    if (menuLabel) menuLabel.textContent = "メニューを開く";
-  });
+  link.addEventListener("click", () => closeMenu());
 });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && navigation?.classList.contains("open")) {
-    menuButton?.setAttribute("aria-expanded", "false");
-    navigation.classList.remove("open");
-    menuButton?.focus();
+    closeMenu({ restoreFocus: true });
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    navigation?.classList.contains("open") &&
+    !navigation.contains(event.target) &&
+    !menuButton?.contains(event.target)
+  ) {
+    closeMenu();
   }
 });
 
@@ -68,9 +81,16 @@ const formatDate = (value) => {
   return year && month && day ? `${year}.${month}.${day}` : value;
 };
 
+const isDisclosurePost = (post) =>
+  Boolean(
+    post?.pdf &&
+      (String(post.summary || "").trim() === "情報公開" ||
+        String(post.title || "").includes("規約")),
+  );
+
 const renderNews = (posts) => {
   const publishedPosts = [...posts]
-    .filter((post) => post.published)
+    .filter((post) => post.published && !isDisclosurePost(post))
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 
   if (!publishedPosts.length || !newsSection || !newsGrid) return;

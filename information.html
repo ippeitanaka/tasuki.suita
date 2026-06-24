@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NPO法人TASUKIの法人規約など、法人運営に関する情報を公開しています。"
+    />
+    <meta name="theme-color" content="#f36b4f" />
+    <title>情報公開｜NPO法人TASUKI</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+    <script src="information.js" defer></script>
+  </head>
+  <body class="subpage">
+    <a class="skip-link" href="#main">本文へ移動</a>
+
+    <header class="site-header scrolled" id="top">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="NPO法人TASUKI ホームへ">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+          <span class="brand-copy"><small>NPO法人</small><strong>TASUKI</strong></span>
+        </a>
+
+        <button
+          class="menu-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="global-nav"
+        >
+          <span class="sr-only">メニューを開く</span>
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="global-nav" id="global-nav" aria-label="メインナビゲーション">
+          <p class="menu-kicker">MENU</p>
+          <a href="index.html"><span>ホーム</span><small>HOME</small></a>
+          <a href="index.html#about"><span>私たちについて</span><small>ABOUT US</small></a>
+          <a href="index.html#activities"><span>活動内容</span><small>WHAT WE DO</small></a>
+          <a href="index.html#news"><span>お知らせ</span><small>NEWS</small></a>
+          <a href="index.html#participate"><span>参加する</span><small>JOIN US</small></a>
+          <a class="nav-disclosure" href="information.html" aria-current="page">
+            <span>情報公開</span><small>DISCLOSURE</small>
+          </a>
+          <a class="nav-contact" href="index.html#contact">
+            <span>お問い合わせ</span><small>CONTACT</small>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="disclosure-hero">
+        <div class="section-inner">
+          <p class="section-kicker">DISCLOSURE</p>
+          <h1>情報公開</h1>
+          <p>
+            NPO法人TASUKIの活動と運営について、透明性を大切にし、法人資料を公開しています。
+          </p>
+        </div>
+      </section>
+
+      <section class="disclosure-content section" aria-labelledby="documents-title">
+        <div class="section-inner disclosure-layout">
+          <div class="disclosure-intro">
+            <p class="section-kicker">DOCUMENTS</p>
+            <h2 id="documents-title">公開資料</h2>
+            <p>資料名をクリックすると、PDFを新しいタブで開きます。</p>
+          </div>
+
+          <div class="document-list" id="document-list" aria-live="polite">
+            <p class="document-loading">公開資料を読み込んでいます…</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer disclosure-footer">
+      <div class="footer-inner">
+        <a class="brand brand-light" href="index.html">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+          <span class="brand-copy"><small>NPO法人</small><strong>TASUKI</strong></span>
+        </a>
+        <div class="footer-nav">
+          <a href="index.html#about">私たちについて</a>
+          <a href="index.html#activities">活動内容</a>
+          <a href="index.html#news">お知らせ</a>
+          <a href="index.html#participate">参加する</a>
+          <a href="information.html">情報公開</a>
+          <a href="index.html#contact">お問い合わせ</a>
+        </div>
+        <a class="copyright admin-entry" href="admin.html">
+          © 2026 NPO法人TASUKI（たすき） All Rights Reserved.
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

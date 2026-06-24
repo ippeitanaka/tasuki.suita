@@ -443,6 +443,18 @@ a {
   font-weight: 700;
 }
 
+.pending-media {
+  color: var(--ink-soft);
+  background: var(--cream);
+}
+
+.pending-media > span:last-child {
+  margin-left: auto;
+  color: #805f00;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
 .publish-toggle {
   padding: 17px;
   border-radius: 11px;

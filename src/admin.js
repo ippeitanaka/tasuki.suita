@@ -42,6 +42,21 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function getContentType(file) {
+  if (file.type) return file.type;
+  const extension = file.name.split(".").pop()?.toLowerCase();
+  return (
+    {
+      pdf: "application/pdf",
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      png: "image/png",
+      webp: "image/webp",
+      gif: "image/gif",
+    }[extension] || "application/octet-stream"
+  );
+}
+
 async function api(path, options = {}) {
   const response = await fetch(path, {
     credentials: "same-origin",
@@ -188,11 +203,12 @@ function editPost(id) {
 }
 
 async function uploadFile(file, category) {
+  const contentType = getContentType(file);
   const uploadInfo = await api("/api/upload", {
     method: "POST",
     body: JSON.stringify({
       fileName: file.name,
-      contentType: file.type,
+      contentType,
       size: file.size,
       category,
     }),
@@ -204,15 +220,21 @@ async function uploadFile(file, category) {
   const { error } = await supabase.storage
     .from(uploadInfo.bucket)
     .uploadToSignedUrl(uploadInfo.path, uploadInfo.token, file, {
-      contentType: file.type,
+      contentType,
     });
-  if (error) throw error;
+  if (error) {
+    throw new Error(
+      error.message
+        ? `ファイルをアップロードできませんでした：${error.message}`
+        : "ファイルをアップロードできませんでした。",
+    );
+  }
 
   return {
     url: uploadInfo.publicUrl,
     path: uploadInfo.path,
     name: file.name,
-    contentType: file.type,
+    contentType,
     size: file.size,
   };
 }
@@ -276,6 +298,26 @@ postList.addEventListener("click", (event) => {
 });
 
 document.querySelector("#new-post").addEventListener("click", resetEditor);
+
+imageInput.addEventListener("change", () => {
+  const count = imageInput.files.length;
+  if (count) {
+    saveState.textContent = `写真を${count}枚選択しました。「保存する」でアップロードします。`;
+  }
+});
+
+pdfInput.addEventListener("change", () => {
+  const file = pdfInput.files[0];
+  if (!file) return;
+  pdfList.innerHTML = `
+    <div class="media-item pending-media">
+      <span aria-hidden="true">📄</span>
+      <span class="media-name" title="${escapeHtml(file.name)}">${escapeHtml(file.name)}</span>
+      <span>選択済み</span>
+    </div>
+  `;
+  saveState.textContent = "PDFを選択しました。「保存する」でアップロードします。";
+});
 
 imageList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-image-index]");

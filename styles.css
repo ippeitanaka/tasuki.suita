@@ -321,6 +321,16 @@ svg {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+.menu-button[aria-expanded="true"] {
+  position: fixed;
+  z-index: 102;
+  top: 20px;
+  right: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(22, 61, 59, 0.1);
+}
+
 .hero {
   position: relative;
   min-height: 740px;
@@ -1381,6 +1391,11 @@ svg {
   .global-nav {
     width: 100%;
     padding: 92px 28px 35px;
+  }
+
+  .menu-button[aria-expanded="true"] {
+    top: 14px;
+    right: 16px;
   }
 
   .hero {

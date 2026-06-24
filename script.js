@@ -49,7 +49,7 @@ document.addEventListener("click", (event) => {
 const contactForm = document.querySelector("#contact-form");
 const formStatus = document.querySelector("#form-status");
 
-contactForm?.addEventListener("submit", (event) => {
+contactForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!contactForm.checkValidity()) {
@@ -57,9 +57,38 @@ contactForm?.addEventListener("submit", (event) => {
     return;
   }
 
+  const submitButton = contactForm.querySelector('[type="submit"]');
+  const formData = new FormData(contactForm);
+  const payload = Object.fromEntries(formData.entries());
+
+  submitButton.disabled = true;
   if (formStatus) {
-    formStatus.textContent =
-      "入力ありがとうございます。公開時に送信先を設定すると、お問い合わせを送信できます。";
+    formStatus.className = "form-status";
+    formStatus.textContent = "送信しています…";
+  }
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "メールを送信できませんでした。");
+
+    contactForm.reset();
+    if (formStatus) {
+      formStatus.className = "form-status success";
+      formStatus.textContent =
+        "お問い合わせを送信しました。内容を確認のうえ、担当者からご連絡します。";
+    }
+  } catch (error) {
+    if (formStatus) {
+      formStatus.className = "form-status error";
+      formStatus.textContent = error.message;
+    }
+  } finally {
+    submitButton.disabled = false;
   }
 });
 

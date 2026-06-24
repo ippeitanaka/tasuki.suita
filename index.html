@@ -291,9 +291,20 @@
           </div>
 
           <form class="contact-form" id="contact-form">
+            <div class="honeypot-field" aria-hidden="true">
+              <label for="website">ウェブサイト</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
             <div class="field">
               <label for="name">お名前 <span>必須</span></label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
             </div>
             <div class="field">
               <label for="email">メールアドレス <span>必須</span></label>
@@ -310,12 +321,22 @@
             </div>
             <div class="field">
               <label for="message">お問い合わせ内容 <span>必須</span></label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                maxlength="5000"
+                required
+              ></textarea>
             </div>
+            <label class="privacy-consent">
+              <input name="privacyConsent" type="checkbox" required />
+              <span>入力した個人情報をお問い合わせへの対応に利用することに同意します。</span>
+            </label>
             <button class="button button-dark" type="submit">
-              内容を確認する <span aria-hidden="true">→</span>
+              お問い合わせを送信する <span aria-hidden="true">→</span>
             </button>
-            <p class="form-status" id="form-status" role="status"></p>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>

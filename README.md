@@ -22,12 +22,24 @@ Vercelプロジェクトには以下の環境変数が必要です。
 - `SUPABASE_URL`
 - `SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SECRET_KEY`
+- `RESEND_API_KEY`
+- `CONTACT_FROM_EMAIL`
 
 パスワードはソースコードへ直接記載しないでください。
 
-## 公開前に設定するもの
+## お問い合わせメール
 
-- お問い合わせフォームの送信先
+お問い合わせフォームの送信にはResendを使用します。
+
+- `RESEND_API_KEY`: Resendで発行したAPIキー
+- `CONTACT_FROM_EMAIL`: Resendで認証済みドメインの送信元アドレス（任意）
+
+`CONTACT_FROM_EMAIL` を省略した場合は、Resendのテスト用送信元を使用します。その場合、Resendアカウントは `syck138@gmail.com` で作成してください。
+
+送信先は `syck138@gmail.com` に固定しています。フォームに入力されたメールアドレスは返信先として設定されます。
+
+## その他の設定
+
 - 必要に応じて電話番号・メールアドレス・SNS
 - 正式なロゴがある場合は現在の簡易ロゴから差し替え
 

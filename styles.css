@@ -1161,10 +1161,39 @@ svg {
 }
 
 .contact-form {
+  position: relative;
   padding: 36px;
   border-radius: 15px;
   background: #fff;
   box-shadow: 0 15px 38px rgba(22, 61, 59, 0.08);
+}
+
+.honeypot-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.privacy-consent {
+  margin: 2px 0 22px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--ink-soft);
+  font-size: 0.73rem;
+  line-height: 1.7;
+  cursor: pointer;
+}
+
+.privacy-consent input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-top: 4px;
+  accent-color: var(--teal);
 }
 
 .field {
@@ -1222,6 +1251,12 @@ svg {
   box-shadow: 0 12px 25px rgba(22, 61, 59, 0.2);
 }
 
+.button-dark:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
 .form-status {
   min-height: 1.7em;
   margin: 15px 0 0;
@@ -1229,6 +1264,14 @@ svg {
   font-size: 0.78rem;
   font-weight: 700;
   text-align: center;
+}
+
+.form-status.success {
+  color: #20766d;
+}
+
+.form-status.error {
+  color: var(--coral-dark);
 }
 
 .site-footer {
